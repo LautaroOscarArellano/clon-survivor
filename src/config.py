@@ -1,0 +1,11 @@
+
+"""Tamaños"""
+SIZE_SCREEN=(1200,500)
+WIDTH=1200
+HEIGH=500
+#350 plataforma
+SIZE_CHARACTER=(100,100)
+"""Velocidades"""
+FPS=60
+SPEED_MC=5
+CSMA=(20,20)

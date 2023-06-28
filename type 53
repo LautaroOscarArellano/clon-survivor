@@ -1,0 +1,58 @@
+import pygame ,sys
+from config import *
+from personaje import Personaje
+
+class Game:
+    def __init__(self) -> None:
+        pygame.init()
+
+        self.is_playing=False
+        self.screen = pygame.display.set_mode(SIZE_SCREEN)
+        pygame.display.set_caption("They Knell day")
+        """Relog"""
+        self.reloj=pygame.time.Clock()
+        """Creacion de grupos"""
+        self.sprites=pygame.sprite.Group()
+        """Characters"""
+        self.main_character=Personaje("./assets/images/Asgardian Soldier.png",SIZE_CHARACTER,(150,50))
+        self.sprites.add(self.main_character)
+
+    def play(self):
+        self.is_playing=True
+        while self.is_playing:
+            self.reloj.tick(FPS) self.manejador_eventos()
+            self.update()
+            self.render()
+           
+
+    def manejador_eventos(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()  
+
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_RIGHT]:#claves son las letras , keys es un diccionario
+            self.main_character.velocidad_x += 5
+            print(self.main_character.velocidad_x)
+        elif keys[pygame.K_LEFT]:
+            self.main_character.velocidad_x -= 5
+            print(self.main_character.velocidad_x)
+        elif keys[pygame.K_UP]:
+            self.main_character.velocidad_y -= 5
+            print(self.main_character.rect.top)
+        elif keys[pygame.K_DOWN]:
+            self.main_character.velocidad_y += 5
+            print( self.main_character.velocidad_y)
+
+
+    def update(self):
+        self.sprites.update()
+    
+    def render(self): 
+        self.screen.fill("Yellow")
+        self.sprites.draw(self.screen)
+        pygame.display.flip()
+
+jugar=Game() 
+jugar.play()
