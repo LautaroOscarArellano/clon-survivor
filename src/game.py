@@ -61,8 +61,8 @@ class Game:
         #Sistema de pausado
         self.pausa=False
         #Enemigos iniciales
-        self.cantidad_bug1=5
-        self.cantidad_bug2=5
+        self.cantidad_enemigo_1=5
+        self.cantidad_enemigo_2=5
         self.multiplicador_terrestre=2
         self.multiplicador_aereo=1
         #Fuente
@@ -189,7 +189,7 @@ class Game:
                 self.flag_nivel4=False
             self.all_sprites.update() 
 
-    def render(self): #(1)
+    def render(self): 
         self.screen.blit(self.fondo , (0,0))
         self.screen.blit(self.fuente_estandar.render("Puntaje : "+str(self.puntaje) , True , "Blue"),(10,10))
         self.screen.blit(self.plataforma.image ,self.plataforma.rect)
@@ -203,8 +203,9 @@ class Game:
     def menu_principal(self):
         if self.pantalla_inicio:
             self.screen.blit(self.menu,(0,0))
-            fuente=pygame.font.Font("./assets/fonts/starship-troopers/MOBILE4.TTF",70)
-            self.generar_texto("Clon Survivor",fuente,"White",300,100)
+            fuente=pygame.font.Font("./assets/fonts/starship-troopers/MOBILE4.TTF",50)
+            self.generar_texto("Clon Survivor",fuente,"White",380,50)
+            self.generar_texto("Espacio para jugar",fuente,"White",320,200)
             pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -274,20 +275,20 @@ class Game:
         self.contador+=1 #delay para reaparicion de enemigos
         if self.contador== 1:
             if len(self.enemigo_terrestre) == 0: #si el grupo esta vacio 
-                for i in range(self.cantidad_bug1):
+                for i in range(self.cantidad_enemigo_1):
                     posicion=(random.randrange(1500, 2500), random.randrange(200, 400))
                     enemigo = Enemigo(posicion) 
                     self.agregar_enemigo_tipo1 (enemigo)
                     self.agregar_sprite(enemigo)     
         if self.contador>=500:
             self.contador=0 
-            self.cantidad_bug1+=2
+            self.cantidad_enemigo_1+=2
 
     def generar_enemigo_volador(self):
         self.contador_2+=1 
         if self.contador_2== 500:
             if len(self.enemigo_volador) == 0: #si el grupo esta vacio 
-                for i in range(self.cantidad_bug2):
+                for i in range(self.cantidad_enemigo_2):
                     posicion=(random.randrange(1500, 2500), random.randrange(100, 250))
                     enemigo = Enemigo_2(posicion) 
                     self.agregar_enemigo_volador (enemigo)
@@ -295,7 +296,7 @@ class Game:
 
         if self.contador_2>=500:#tiempo en que aparescan los enemigos 
             self.contador_2=0
-            self.cantidad_bug2+=1
+            self.cantidad_enemigo_2+=1
 
     def guardar_puntaje(self):
         self.jugador+=1
